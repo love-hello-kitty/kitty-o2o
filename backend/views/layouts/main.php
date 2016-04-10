@@ -1,79 +1,90 @@
 <?php
-
-/* @var $this \yii\web\View */
-/* @var $content string */
-
+use backend\widgets\Breadcrumb;
+use backend\widgets\Menu;
+use yii\helpers\Url;
 use backend\assets\AppAsset;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use common\widgets\Alert;
-
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+	<?php $this->head() ?>
+	<title><?= Yii::$app->name ?></title>
+	<meta charset="<?= Yii::$app->charset ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>" />
+	<?= Html::csrfMetaTags() ?>
 </head>
 <body>
-<?php $this->beginBody() ?>
-
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
-
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+	<?php $this->beginBody() ?>
+	<div id="header">
+		<h1><a href="javascript:void(0);"><?= Yii::$app->name ?></a></h1>
+	</div>
+	
+	<!-- 搜索框 -->
+	<!-- 
+	<div id="search">
+		<input type="text" placeholder="Search here..." /><button type="submit" class="tip-right" title="Search"><i class="icon-search icon-white"></i></button>
+	</div>
+	 -->
+	<!-- 搜索框 -->
+	
+	<!-- 右侧导航栏 -->
+	<div id="user-nav" class="navbar navbar-inverse">
+        <ul class="nav btn-group">
+            <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text"><?php echo Yii::$app->session['__adminmanger']['username'];?></span></a></li>
+            <!-- 
+            <li class="btn btn-inverse dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a class="sAdd" title="" href="#">new message</a></li>
+                    <li><a class="sInbox" title="" href="#">inbox</a></li>
+                    <li><a class="sOutbox" title="" href="#">outbox</a></li>
+                    <li><a class="sTrash" title="" href="#">trash</a></li>
+                </ul>
+            </li>
+            <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+            -->
+            <li class="btn btn-inverse"><a title="退出" href="<?php echo Url::to(['account/logout']);?>"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
+        </ul>
     </div>
-</div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
-
-<?php $this->endBody() ?>
+    <!-- 右侧导航栏 -->
+    
+    <!-- 左侧菜单栏 -->
+	<?php echo Menu::widget([
+	       'active' => !empty(Yii::$app->controller->id) ? Yii::$app->controller->id : null,
+	       'menus' => Yii::$app->params['admin_menus'],
+	]);?>
+	<!-- 左侧菜单栏 -->
+	
+	<div id="content">
+		<div id="content-header">
+			<h1>伙伴咖啡  后台管理</h1>
+			<div class="btn-group">
+				<a class="btn btn-large tip-bottom" title="商家管理" href="<?php echo Url::to(['store/index']);?>"><i class="icon-tags"></i></a>
+				<a class="btn btn-large tip-bottom" title="用户管理" href="<?php echo Url::to(['members/index']);?>"><i class="icon-user"></i></a>
+				<a class="btn btn-large tip-bottom" title="统计管理" href="<?php echo Url::to(['statistics/index']);?>"><i class="icon-list-alt"></i></a>
+				<a class="btn btn-large tip-bottom" title="商家申请注册管理" href="<?php echo Url::to(['apply-register/index']);?>"><i class="icon-edit"></i></a>
+			</div>
+		</div>
+		
+		<!-- 面包屑 -->
+		<?php echo Breadcrumb::widget([
+		        'nav' => isset($this->params['breadcrumb']) ? $this->params['breadcrumb'] : [],
+		]);?>
+		<!-- 面包屑 -->
+		
+		<div class="container-fluid">			
+			<?php echo $content;?>
+			<div class="row-fluid">
+				<div id="footer" class="span12">
+					2015 &copy; 加菲猫科技有限公司. Powerd by <a href="http://www.yiya520.com">周星星</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

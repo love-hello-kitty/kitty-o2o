@@ -22,4 +22,16 @@ class BaseBackController extends Controller
 			],
 		];
 	}
+
+    public function beforeAction($action) {
+	    if (parent::beforeAction($action)) {
+	        $session = Yii::$app->session;
+	        if (empty($session[Yii::$app->params['admin_session_name']]) && (!defined('NO_LOGIN') || !NO_LOGIN)) {
+	            $this->redirect(['login/index']);
+	        }
+	        return true;
+	    }else{
+	        return false;
+	    }
+    }
 }
