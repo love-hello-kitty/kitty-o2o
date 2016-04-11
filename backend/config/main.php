@@ -8,8 +8,11 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'name' => 'KIITY--后台管理',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
+    'defaultRoute' => 'admin',
+    'language' => 'zh-CN',
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
