@@ -65,7 +65,6 @@ AppAsset::register($this);
 				<a class="btn btn-large tip-bottom" title="商家管理" href="<?php echo Url::to(['store/index']);?>"><i class="icon-tags"></i></a>
 				<a class="btn btn-large tip-bottom" title="用户管理" href="<?php echo Url::to(['members/index']);?>"><i class="icon-user"></i></a>
 				<a class="btn btn-large tip-bottom" title="统计管理" href="<?php echo Url::to(['statistics/index']);?>"><i class="icon-list-alt"></i></a>
-				<a class="btn btn-large tip-bottom" title="商家申请注册管理" href="<?php echo Url::to(['apply-register/index']);?>"><i class="icon-edit"></i></a>
 			</div>
 		</div>
 		

@@ -10,12 +10,12 @@ class LoginAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/common/bootstrap.min.css',
-        'css/common/bootstrap-responsive.min.css',
-        'css/common/unicorn.login.css',
+        'css/bootstrap.min.css',
+        'css/bootstrap-responsive.min.css',
+        'css/unicorn.login.css',
     ];
     public $js = [
-        'js/common/jquery.min.js',
-        'js/common/unicorn.login.js',
+        'js/jquery.min.js',
+        'js/unicorn.login.js',
     ];
 }

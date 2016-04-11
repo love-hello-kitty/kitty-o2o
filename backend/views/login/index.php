@@ -1,6 +1,6 @@
 <?php use yii\helpers\Url;?>
 <div id="logo">
-    <img src="<?php echo Yii::$app->request->baseUrl; ?>/img/logo.png" alt="伙伴咖啡--后台管理" />
+    <img src="<?php echo Yii::$app->request->baseUrl; ?>/img/logo.png" alt="KITTY--后台管理" />
 </div>
 <div id="loginbox">            
     <form id="loginform" class="form-vertical" action="<?php echo Url::to(['login/login']);?>" method="post" />
