@@ -46,7 +46,7 @@ AppAsset::register($this);
             </li>
             <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
             -->
-            <li class="btn btn-inverse"><a title="退出" href="<?php echo Url::to(['account/logout']);?>"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
+            <li class="btn btn-inverse"><a title="退出" href="<?php echo Url::to(['login/logout']);?>"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
         </ul>
     </div>
     <!-- 右侧导航栏 -->
@@ -60,7 +60,7 @@ AppAsset::register($this);
 	
 	<div id="content">
 		<div id="content-header">
-			<h1>伙伴咖啡  后台管理</h1>
+			<h1>KITTY  后台管理</h1>
 			<div class="btn-group">
 				<a class="btn btn-large tip-bottom" title="商家管理" href="<?php echo Url::to(['store/index']);?>"><i class="icon-tags"></i></a>
 				<a class="btn btn-large tip-bottom" title="用户管理" href="<?php echo Url::to(['members/index']);?>"><i class="icon-user"></i></a>
