@@ -1,18 +1,6 @@
 <?php
 return [
     'admin_session_name' => '__KITTY_O2O_ADMIN',
-    //商家状态
-    'store_status' => [
-            '0' => '全部状态',
-            '1' => '待审核',
-            '2' => '已审核',
-            '3' => '被打回'
-     ],
-     'member_status' => [
-            '0' => '全部状态',
-            '1' => '正常',
-            '2' => '被封禁'
-     ],
      //后台菜单
     'admin_menus' => [
          ['name' => '首页','url'  => ['admin/index'],'mark' => 'admin','icon' => 'icon-home'],
