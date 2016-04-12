@@ -29,7 +29,7 @@ class Members extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%kt_members}}';
+        return '{{%members}}';
     }
 
     /**

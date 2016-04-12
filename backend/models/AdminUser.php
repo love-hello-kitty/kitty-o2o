@@ -24,7 +24,7 @@ class AdminUser extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%kt_admin_user}}';
+        return '{{%admin_user}}';
     }
 
     /**

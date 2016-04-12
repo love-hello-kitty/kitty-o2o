@@ -34,7 +34,7 @@ class Store extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%kt_store}}';
+        return '{{%store}}';
     }
 
     /**

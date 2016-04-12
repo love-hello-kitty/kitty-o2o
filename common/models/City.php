@@ -19,7 +19,7 @@ class City extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%kt_city}}';
+        return '{{%city}}';
     }
 
     /**

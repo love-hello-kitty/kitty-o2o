@@ -17,7 +17,7 @@ class Province extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%kt_province}}';
+        return '{{%province}}';
     }
 
     /**

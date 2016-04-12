@@ -25,7 +25,7 @@ class StoreAccount extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%kt_store_account}}';
+        return '{{%store_account}}';
     }
 
     /**

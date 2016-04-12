@@ -18,7 +18,7 @@ class GoodsSort extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%kt_goods_sort}}';
+        return '{{%goods_sort}}';
     }
 
     /**

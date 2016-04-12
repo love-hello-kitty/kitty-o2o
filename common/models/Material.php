@@ -25,7 +25,7 @@ class Material extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%kt_material}}';
+        return '{{%material}}';
     }
 
     /**
