@@ -6,7 +6,7 @@ $params = array_merge(
     require(__DIR__ . '/params-local.php')
 );
 
-return [
+$config = [
     'id' => 'app-storebackend',
     'name' => 'KITTY--商家后台',
     'basePath' => dirname(__DIR__),
@@ -25,6 +25,10 @@ return [
                 ],
             ],
         ],
+        'request' => [
+            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            'cookieValidationKey' => 'Utph0VKUe5XJF_FkB6MMDApnQ1BZeotl',
+        ],
         'errorHandler' => [
             'errorAction' => 'error/error',
         ],
@@ -36,3 +40,16 @@ return [
     ],
     'params' => $params,
 ];
+
+if (!YII_ENV_TEST) {
+    // configuration adjustments for 'dev' environment
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = 'yii\debug\Module';
+
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = 'yii\gii\Module';
+}
+
+return $config;
+
+
