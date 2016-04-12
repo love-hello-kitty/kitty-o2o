@@ -11,7 +11,7 @@ LoginAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>" />
     <?= Html::csrfMetaTags() ?>
-    <title>登陆</title>
+    <title>商家后台登陆</title>
     <?php $this->head() ?>
 </head>
 <body>

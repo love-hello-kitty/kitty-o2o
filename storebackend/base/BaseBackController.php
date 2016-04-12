@@ -27,13 +27,13 @@ class BaseBackController extends Controller
 	public function beforeAction($action) {
 	    if (parent::beforeAction($action)) {
 	        $session = Yii::$app->session;
-	        if (empty($session['__storeaccountinfo']) && (!defined('NO_LOGIN') || !NO_LOGIN)) {
+	        if (empty($session[Yii::$app->params['store_admin_session_name']]) && (!defined('NO_LOGIN') || !NO_LOGIN)) {
 	            //跳转到登录页面
 	            $this->redirect(['account/index']);
 	        }
 	        //如果已经登录就保存store_id
-	        if (!empty($session['__storeaccountinfo'])) {
-	            $this->store_id = intval($session['__storeaccountinfo']['store_id']);
+	        if (!empty($session[Yii::$app->params['store_admin_session_name']])) {
+	            $this->store_id = intval($session[Yii::$app->params['store_admin_session_name']]['store_id']);
 	        }
 	        return true;
 	    }else{

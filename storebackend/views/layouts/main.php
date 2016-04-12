@@ -45,7 +45,7 @@ AppAsset::register($this);
                 </ul>
             </li>
              -->
-            <li class="btn btn-inverse"><a title="账户设置" href="<?php echo Url::to(['store-account/index']);?>"><i class="icon icon-user"></i> <span class="text"><?php echo Yii::$app->session['__storeaccountinfo']['account_name']; ?></span></a></li>
+            <li class="btn btn-inverse"><a title="账户设置" href="<?php echo Url::to(['store-account/index']);?>"><i class="icon icon-user"></i> <span class="text"><?php echo Yii::$app->session[Yii::$app->params['store_admin_session_name']]['account_name']; ?></span></a></li>
             <li class="btn btn-inverse"><a title="退出" href="<?php echo Url::to(['account/logout']);?>"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
         </ul>
     </div>
@@ -60,7 +60,7 @@ AppAsset::register($this);
 	
 	<div id="content">
 		<div id="content-header">
-			<h1><?php echo Yii::$app->session['__storeaccountinfo']['store_name']; ?>  后台管理</h1>
+			<h1><?php echo Yii::$app->session[Yii::$app->params['store_admin_session_name']]['store_name']; ?>  后台管理</h1>
 			<div class="btn-group">
 				<a class="btn btn-large tip-bottom" title="门店管理" href="<?php echo Url::to(['store/index']);?>"><i class="icon-tags"></i></a>
 				<a class="btn btn-large tip-bottom" title="商品管理" href="<?php echo Url::to(['goods/index']);?>"><i class="icon-gift"></i></a>

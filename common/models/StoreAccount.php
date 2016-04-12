@@ -59,4 +59,32 @@ class StoreAccount extends \yii\db\ActiveRecord
             'order_id' => '排序ID',
         ];
     }
+    
+    //执行登录操作
+    public function login($account_name = '' , $password = '') {
+    	$account = StoreAccount::find()
+    			->where(['account_name' => $account_name,'status' => 1])
+    			->one();
+    	if (!$account) {
+    		return Error::ERR_LOGINERROR;
+    	}
+    	$_password = md5($account->salt . $password);
+    	if ($_password != $account->password) {
+    		return Error::ERR_LOGINERROR;
+    	} else {
+    	    //获取商家的信息
+    	    $store = Store::findOne(['id' => $account->store_id,'status' => 2]);
+    	    if (empty($store)) {
+    	        return Error::ERR_LOGINERROR;
+    	    }
+
+    		Yii::$app->session->set(Yii::$app->params['store_admin_session_name'],array(
+    			'id'			=> $account->id,
+    			'store_id'	    => $account->store_id,
+    			'account_name'  => $account->account_name,
+    		    'store_name'    => $store->name
+    		));
+    		return Error::SUCCESS;
+    	}
+    }
 }
