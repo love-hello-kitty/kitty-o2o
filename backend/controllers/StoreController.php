@@ -331,7 +331,7 @@ class StoreController extends BaseBackController
 		$province_id = Yii::$app->request->post('province_id');
 		if (!intval($province_id))
 			Error::output(Error::ERR_NOID);
-		$citys = City::find()
+		    $citys = City::find()
 					->where(['province_id'=>$province_id])
 					->asArray()
 					->all();
