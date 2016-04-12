@@ -3,9 +3,11 @@ namespace storebackend\controllers;
 
 use Yii;
 use storebackend\base\BaseBackController;
+use storebackend\helpers\Error;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use common\models\StoreAccount;
+
 define('NO_LOGIN',true);
 //商家后台管理相关操作的控制器
 class AccountController extends BaseBackController

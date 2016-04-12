@@ -18,6 +18,7 @@ class Error
 	const ERR_NO_CONSUME_CODE = 10009;
 	const ERR_CONSUME_CODE_ERROR = 10010;
 	const ERR_ALREADY_CONSUME = 10011;
+	const ERR_NO_STORE = 10012;
 	
 	public static function output($errorCode = '',$data = []) {
 		$errorMsg = self::getErrorInfo();
@@ -45,7 +46,7 @@ class Error
 			self::ERR_ILLEGAL 		            => '非法操作',
 			self::ERR_FAIL 			            => '失败',
 			self::ERR_NOID         	            => '缺少ID',
-			self::ERR_NOUSER         	        => '用户不存在',
+			self::ERR_NOUSER         	        => '账号不存在',
 			self::ERR_PASSWORD         	        => '密码有误',
 			self::ERR_NOPWD						=> '密码不能为空',
 			self::ERR_PASSWORD_TOO_LONG			=> '密码过长',
@@ -54,6 +55,7 @@ class Error
 			self::ERR_NO_CONSUME_CODE		    => '消费码不能为空',
 			self::ERR_CONSUME_CODE_ERROR		=> '消费码有误',
 			self::ERR_ALREADY_CONSUME		    => '您已经消费',
+			self::ERR_NO_STORE		            => '商家不存在',
 		];
 		
 	}

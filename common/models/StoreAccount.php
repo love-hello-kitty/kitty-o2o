@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use storebackend\helpers\Error;
 
 /**
  * This is the model class for table "{{%kt_store_account}}".
@@ -66,16 +67,16 @@ class StoreAccount extends \yii\db\ActiveRecord
     			->where(['account_name' => $account_name,'status' => 1])
     			->one();
     	if (!$account) {
-    		return Error::ERR_LOGINERROR;
+    		return Error::ERR_NOUSER;
     	}
     	$_password = md5($account->salt . $password);
     	if ($_password != $account->password) {
-    		return Error::ERR_LOGINERROR;
+    		return Error::ERR_PASSWORD;
     	} else {
     	    //获取商家的信息
     	    $store = Store::findOne(['id' => $account->store_id,'status' => 2]);
     	    if (empty($store)) {
-    	        return Error::ERR_LOGINERROR;
+    	        return Error::ERR_NO_STORE;
     	    }
 
     		Yii::$app->session->set(Yii::$app->params['store_admin_session_name'],array(
