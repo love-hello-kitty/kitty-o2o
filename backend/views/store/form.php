@@ -3,12 +3,15 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use backend\assets\AppAsset;
 AppAsset::addCss($this,'@web/css/select2.css');
+AppAsset::addCss($this,'@web/css/jquery.datetimepicker.css');
 AppAsset::addScript($this,'@web/js/jquery.uniform.js');
 AppAsset::addScript($this,'@web/js/select2.min.js');
 AppAsset::addScript($this,'@web/js/unicorn.js');
 AppAsset::addScript($this,'@web/js/jquery.datetimepicker.js');
-AppAsset::addCss($this,'@web/css/jquery.datetimepicker.css');
-
+AppAsset::addScript($this,'http://api.map.baidu.com/api?v=2.0&ak=7QueCRjcCpxZEqhNdTHr9oD1A6G0rlD4',3);
+AppAsset::addScript($this,'http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js',3);
+AppAsset::addCss($this,'http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css');
+AppAsset::addScript($this,'@web/js/store/storemap.js',3);
 
 if(!empty($model)) {
 	$action = 'update';
@@ -126,27 +129,13 @@ $(document).ready(function(){
 							<input type="file" name="logo_pic" />
 						</div>
 					</div>
-					<!-- 
+
 					<div class="control-group">
 						<label class="control-label">商家简介</label>
 						<div class="controls">
 							<textarea name="brief"><?= $brief; ?></textarea>
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label">门店面积</label>
-						<div class="controls">
-							<input type="text" name="store_area"  value="<?= $store_area; ?>" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label">营业时间</label>
-						<div class="controls">
-							<input id = 'datetimepicker1' style='width:15%' type="text" name='open_stime' value="<?= $open_stime; ?>" />~
-							<input id = 'datetimepicker2' style='width:15%' type="text" name="open_etime"  value="<?= $open_etime; ?>" />
-						</div>
-					</div>
-					 -->
 					<div class="control-group">
 						<label class="control-label">所属地区</label>
 						<div class="controls" style= 'line-height:30px'>
@@ -191,26 +180,6 @@ $(document).ready(function(){
 							<input type="text" name='phone'  value="<?= $phone; ?>" />
 						</div>
 					</div>
-					<!-- 
-					<div class="control-group" style='display:none'>
-						<label class="control-label">门脸图</label>
-						<div class="controls">
-							<img src="<?php echo $front_pic_url;?>" width="160px;" height="120px;" />
-						</div>
-						<div class="controls">
-							<input type="file" name="front_pic" />
-						</div>
-					</div>
-					<div class="control-group" style='display:none'>
-						<label class="control-label">店内环境图</label>
-						<div class="controls">
-							<img src="<?php echo $store_env_pic_url;?>" width="160px;" height="120px;" />
-						</div>
-						<div class="controls">
-							<input type="file" name="store_env_pic" />
-						</div>
-					</div>
-					-->
 					<div class="control-group">
 						<label class="control-label">坐标（经度）</label>
 						<div class="controls">
@@ -240,40 +209,4 @@ $(document).ready(function(){
 			</div>
 		</div>						
 	</div>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7QueCRjcCpxZEqhNdTHr9oD1A6G0rlD4"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
-<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
-<script type="text/javascript">
-var map = new BMap.Map("map"); // 创建地图实例
-var form_type = '<?=$action;?>';
-if (form_type == 'create') {
-   map.centerAndZoom("南京", 11); // 初始化地图，设置中心点坐标和地图级别(改为以城市为中心)
-} else if (form_type == 'update') {
-   var point = new BMap.Point(<?=$longitude?>,<?=$latitude?>); // 创建点坐标
-   map.centerAndZoom(point, 15); // 初始化地图，设置中心点坐标和地图级别
-   var marker = new BMap.Marker(point);        // 创建标注
-   map.addOverlay(marker);                     // 将标注添加到地图中
-}
-map.enableScrollWheelZoom();//缩放
-map.addControl(new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_RIGHT})); //添加默认缩放平移控件
-
-map.addEventListener("click",function(e){
-   //先删除覆盖物
-   map.clearOverlays();
-   var point = new BMap.Point(e.point.lng, e.point.lat);  
-   var marker = new BMap.Marker(point);        // 创建标注
-//    var opts = {    
-// 		   width : 250,     // 信息窗口宽度    
-// 		   height: 100,     // 信息窗口高度    
-// 		   title : "Hello"  // 信息窗口标题   
-// 		  }    
-//    var infoWindow = new BMap.InfoWindow("World", opts);  // 创建信息窗口对象    
-//    map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
-   map.addOverlay(marker);                     // 将标注添加到地图中
-   //将值改变
-   $('#longitude').val(e.point.lng);
-   $('#latitude').val(e.point.lat);
-});
-</script>
-	
 </div>
