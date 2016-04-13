@@ -240,14 +240,14 @@ $(document).ready(function(){
 			</div>
 		</div>						
 	</div>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=<?=Yii::$app->params['lbsApi']['ak']?>"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7QueCRjcCpxZEqhNdTHr9oD1A6G0rlD4"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
 <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
 <script type="text/javascript">
 var map = new BMap.Map("map"); // 创建地图实例
 var form_type = '<?=$action;?>';
 if (form_type == 'create') {
-   map.centerAndZoom("无锡", 11); // 初始化地图，设置中心点坐标和地图级别(改为以城市为中心)
+   map.centerAndZoom("南京", 11); // 初始化地图，设置中心点坐标和地图级别(改为以城市为中心)
 } else if (form_type == 'update') {
    var point = new BMap.Point(<?=$longitude?>,<?=$latitude?>); // 创建点坐标
    map.centerAndZoom(point, 15); // 初始化地图，设置中心点坐标和地图级别
