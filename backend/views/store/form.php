@@ -3,14 +3,10 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use backend\assets\AppAsset;
 AppAsset::addCss($this,'@web/css/select2.css');
-AppAsset::addCss($this,'@web/css/jquery.datetimepicker.css');
-AppAsset::addCss($this,'http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css');
 AppAsset::addScript($this,'@web/js/jquery.uniform.js');
 AppAsset::addScript($this,'@web/js/select2.min.js');
 AppAsset::addScript($this,'@web/js/unicorn.js');
-AppAsset::addScript($this,'@web/js/jquery.datetimepicker.js');
-AppAsset::addScript($this,'http://api.map.baidu.com/api?v=2.0&ak=7QueCRjcCpxZEqhNdTHr9oD1A6G0rlD4',3);
-AppAsset::addScript($this,'http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js',3);
+AppAsset::addScript($this,Yii::$app->params['lbsyun']['web_map_api'],3);
 AppAsset::addScript($this,'@web/js/store/storemap.js',3);
 
 if(!empty($model)) {
@@ -31,6 +27,14 @@ $this->params = ['breadcrumb'  => [
 $longitude = !empty($longitude) ? $longitude : 0;
 $latitude = !empty($latitude) ? $latitude : 0;
 ?>
+<script type="text/javascript">
+//构建好JS里面用到的变量
+var _config = {
+	action:"<?=$action ?>",
+	longitude:<?=$longitude?>,
+	latitude:<?=$latitude?>
+};
+</script>
 <div class="row-fluid">
 	<div class="span12">
 		<div class="widget-box">
