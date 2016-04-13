@@ -4,13 +4,13 @@ use yii\helpers\Url;
 use backend\assets\AppAsset;
 AppAsset::addCss($this,'@web/css/select2.css');
 AppAsset::addCss($this,'@web/css/jquery.datetimepicker.css');
+AppAsset::addCss($this,'http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css');
 AppAsset::addScript($this,'@web/js/jquery.uniform.js');
 AppAsset::addScript($this,'@web/js/select2.min.js');
 AppAsset::addScript($this,'@web/js/unicorn.js');
 AppAsset::addScript($this,'@web/js/jquery.datetimepicker.js');
 AppAsset::addScript($this,'http://api.map.baidu.com/api?v=2.0&ak=7QueCRjcCpxZEqhNdTHr9oD1A6G0rlD4',3);
 AppAsset::addScript($this,'http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js',3);
-AppAsset::addCss($this,'http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css');
 AppAsset::addScript($this,'@web/js/store/storemap.js',3);
 
 if(!empty($model)) {
@@ -31,78 +31,6 @@ $this->params = ['breadcrumb'  => [
 $longitude = !empty($longitude) ? $longitude : 0;
 $latitude = !empty($latitude) ? $latitude : 0;
 ?>
-<script>
-$(document).ready(function(){
-// 	$('input[type=radio],input[type=file]').uniform();
-	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
-// 	$('select').select2();
-	//返回
-	$('.go-back').on('click',function() {
-		var url = "<?php echo Url::to(['store/index']);?>";
-		window.location.href = url;
-	})
-	//省市区变化
-	$('#province_select').change(function(){
-		var province_id = $('#province_select').val();
-		$.ajax({
-			type: "POST",
-			   url: '<?php echo Url::to(['store/getcitys']);?>',
-			   data: {province_id:province_id},
-			   success: function(msg) {
-				   var obj = eval('('+msg+')');	
-				   if (obj.errorCode == 0 ) {
-					   $("#city_select").empty();
-					   var output = [];
-					   var city_id;
-					   $.each(obj.data, function(key, value) {
-						   if(key == 0) { 
-							   city_id = value['id'];
-							   output.push('<option selected=selected value="'+ value['id'] +'">'+ value['name'] +'</option>');
-						   } else {
-							   output.push('<option value="'+ value['id'] +'">'+ value['name'] +'</option>');
-						   }
-					   });
-					   $('#city_select').html(output.join(''));
-					   city_change(city_id);
-				   }
-			   }
-		});
-	})
-	
-	var city_change = function (id) {
-		var city_id = id;
-		$.ajax({
-			type: "POST",
-			   url: '<?php echo Url::to(['store/getdistricts']);?>',
-			   data: {city_id:city_id},
-			   success: function(msg) {
-				   var obj = eval('('+msg+')');	
-				   if (obj.errorCode == 0 ) {
-					   $("#district_select").empty();
-					   var output = [];
-					   $.each(obj.data, function(key, value) {
-						   if(key == 0) { 
-							   output.push('<option selected=selected value="'+ value['id'] +'">'+ value['name'] +'</option>');
-						   } else {
-							   output.push('<option value="'+ value['id'] +'">'+ value['name'] +'</option>');
-						   }
-					   });
-					   $('#district_select').html(output.join(''));
-				   }
-			   }
-		});
-	}
-	$('#city_select').change(function(){
-		var city_id = $('#city_select').val();
-		city_change(city_id);
-	})
-	$('#datetimepicker1,#datetimepicker2').datetimepicker({
-		datepicker:false,
-		format:'H:i:00',
-		step:30
-	});
-});
-</script>
 <div class="row-fluid">
 	<div class="span12">
 		<div class="widget-box">
