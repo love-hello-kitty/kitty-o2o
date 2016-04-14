@@ -328,7 +328,7 @@ class StoreController extends BaseBackController
      * 根据province_id得到citys
      */
     public function actionGetcitys() {
-		$province_id = Yii::$app->request->post('province_id');
+		$province_id = Yii::$app->request->get('province_id');
 		if (!intval($province_id))
 			Error::output(Error::ERR_NOID);
 		    $citys = City::find()
@@ -342,10 +342,10 @@ class StoreController extends BaseBackController
      * 根据city_id得到districts
      */
     public function actionGetdistricts() {
-    	$city_id = Yii::$app->request->post('city_id');
+    	$city_id = Yii::$app->request->get('city_id');
     	if (!intval($city_id))
     		Error::output(Error::ERR_NOID);
-    	$districts = District::find()
+        $districts = District::find()
 				    	->where(['city_id'=>$city_id])
 				    	->asArray()
 				    	->all();

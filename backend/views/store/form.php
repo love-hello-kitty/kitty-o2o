@@ -6,6 +6,7 @@ AppAsset::addCss($this,'@web/css/select2.css');
 AppAsset::addScript($this,'@web/js/jquery.uniform.js');
 AppAsset::addScript($this,'@web/js/select2.min.js');
 AppAsset::addScript($this,'@web/js/unicorn.js');
+AppAsset::addScript($this,'@web/js/store/store.js');
 AppAsset::addScript($this,Yii::$app->params['lbsyun']['web_map_api'],3);
 AppAsset::addScript($this,'@web/js/store/storemap.js',3);
 
@@ -32,7 +33,9 @@ $latitude = !empty($latitude) ? $latitude : 0;
 var _config = {
 	action:"<?=$action ?>",
 	longitude:<?=$longitude?>,
-	latitude:<?=$latitude?>
+	latitude:<?=$latitude?>,
+	getCityUrl:"<?php echo Url::to(['store/getcitys']);?>",
+	geDistrictUrl:"<?php echo Url::to(['store/getdistricts']);?>"
 };
 </script>
 <div class="row-fluid">
@@ -70,22 +73,22 @@ var _config = {
 					</div>
 					<div class="control-group">
 						<label class="control-label">所属地区</label>
-						<div class="controls" style= 'line-height:30px'>
-							省：	<select name='province_id' style='width:15%' id='province_select'>
+						<div class="controls area-select" style= 'line-height:30px'>
+							省：	<select name='province_id' class="province-sel">
 									<?php if (!empty($area['provinces'])):?>
 									<?php foreach ($area['provinces'] as $k => $v):?>
 										<option value='<?=$v['id'];?>' <?php if ($province_id == $v->id):?>selected = "selected"><?= $province_name; ?><?php else: ?>><?=$v->name ?><?php endif; ?></option>
 									<?php endforeach;?>
 									<?php endif;?>
 								</select>
-							市：<select name='city_id' style='width:15%' id='city_select'>
+							市：<select name='city_id'  class="city-sel">
 									<?php if (!empty($area['citys'])):?>
 									<?php foreach ($area['citys'] as $k => $v):?>
 										<option value='<?=$v['id'];?>' <?php if ($city_id == $v->id):?>selected = "selected"><?= $city_name; ?><?php else: ?>><?=$v->name ?><?php endif; ?></option>
 									<?php endforeach;?>
 									<?php endif;?>
 								</select>
-							区：<select name='district_id' style='width:15%' id='district_select'>
+							区：<select name='district_id'  class="district-sel">
 									<?php if (!empty($area['districts'])):?>
 									<?php foreach ($area['districts'] as $k => $v):?>
 										<option value='<?=$v['id'];?>' <?php if ($district_id == $v->id):?>selected = "selected"><?= $district_name; ?><?php else: ?>><?=$v->name ?><?php endif; ?></option>
