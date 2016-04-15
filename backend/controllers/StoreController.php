@@ -109,7 +109,7 @@ class StoreController extends BaseBackController
     public function actionCreate() {
     	$post = Yii::$app->request->post();
     	//判断商家名称
-    	if (empty($post['store_name'])) {
+    	if (empty($post['name'])) {
     		throw new NotFoundHttpException(Yii::t('yii','商家名称不能为空'));
     	}
     	//所属省份
@@ -137,7 +137,7 @@ class StoreController extends BaseBackController
     		throw new NotFoundHttpException(Yii::t('yii','纬度不能为空'));
     	}
     	$model = new Store();
-    	$model->store_name = $post['store_name'];
+    	$model->name = $post['name'];
     	$model->province_id = intval($post['province_id']);
     	$model->city_id = $post['city_id'];
     	$model->district_id = $post['district_id'];
@@ -148,7 +148,6 @@ class StoreController extends BaseBackController
     	$model->phone = trim($post['phone']);
     	$model->create_time = time();
     	$model->update_time = time();
-    	$model->status = 1;
     	//商家LOGO图片
     	if (!empty($_FILES['logo_pic']) && $_FILES['logo_pic']['error'] === 0) {
     		$ret = Yii::$app->uploader->upload($_FILES['logo_pic']);
@@ -204,6 +203,10 @@ class StoreController extends BaseBackController
         if (empty($post['id'])) {
             throw new NotFoundHttpException(Yii::t('yii','商家ID不能为空'));
         }
+        //判断商家名称
+    	if (empty($post['name'])) {
+    		throw new NotFoundHttpException(Yii::t('yii','商家名称不能为空'));
+    	}
         //所属省份
         if (!intval($post['province_id'])) {
         	throw new NotFoundHttpException(Yii::t('yii','省份不能为空'));
@@ -229,7 +232,7 @@ class StoreController extends BaseBackController
         	throw new NotFoundHttpException(Yii::t('yii','纬度不能为空'));
         }
         $model = $this->findModel(intval($post['id']));
-        $model->store_name = $post['store_name'];
+        $model->name = $post['name'];
         $model->province_id = intval($post['province_id']);
         $model->city_id = $post['city_id'];
         $model->district_id = $post['district_id'];

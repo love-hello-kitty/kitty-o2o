@@ -16,7 +16,7 @@ if(!empty($model)) {
     foreach ($model AS $k => $v) {
         ${$k} = $v;
     }
-} else {
+}else{
 	$action = 'create';
 	$op_text = '创建';
 }
@@ -31,12 +31,15 @@ $latitude = !empty($latitude) ? $latitude : 0;
 <script type="text/javascript">
 //构建好JS里面用到的变量
 var _config = {
-	action:"<?=$action ?>",
-	longitude:<?=$longitude?>,
-	latitude:<?=$latitude?>,
-	getCityUrl:"<?php echo Url::to(['store/getcitys']);?>",
-	geDistrictUrl:"<?php echo Url::to(['store/getdistricts']);?>"
+    action:"<?=$action ?>",
+    longitude:<?=$longitude?>,
+    latitude:<?=$latitude?>,
+    getCityUrl:"<?php echo Url::to(['store/getcitys']);?>",
+    geDistrictUrl:"<?php echo Url::to(['store/getdistricts']);?>"
 };
+$(function() {
+	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
+})
 </script>
 <div class="row-fluid">
 	<div class="span12">
@@ -52,7 +55,7 @@ var _config = {
 					<div class="control-group">
 						<label class="control-label">商家名称</label>
 						<div class="controls">
-							<input type="text" id='store_area'  name="store_name" value="<?= $store_name; ?>" />
+							<input type="text" name="name" value="<?=$name; ?>" />
 						</div>
 					</div>
 					<div class="control-group">
@@ -64,7 +67,6 @@ var _config = {
 							<input type="file" name="logo_pic" />
 						</div>
 					</div>
-
 					<div class="control-group">
 						<label class="control-label">商家简介</label>
 						<div class="controls">
@@ -75,6 +77,7 @@ var _config = {
 						<label class="control-label">所属地区</label>
 						<div class="controls area-select" style= 'line-height:30px'>
 							省：	<select name='province_id' class="province-sel">
+									<option value="0">----请选择----</option>
 									<?php if (!empty($area['provinces'])):?>
 									<?php foreach ($area['provinces'] as $k => $v):?>
 										<option value='<?=$v['id'];?>' <?php if ($province_id == $v->id):?>selected = "selected"><?= $province_name; ?><?php else: ?>><?=$v->name ?><?php endif; ?></option>
@@ -82,6 +85,7 @@ var _config = {
 									<?php endif;?>
 								</select>
 							市：<select name='city_id'  class="city-sel">
+									<option value="0">----请选择----</option>
 									<?php if (!empty($area['citys'])):?>
 									<?php foreach ($area['citys'] as $k => $v):?>
 										<option value='<?=$v['id'];?>' <?php if ($city_id == $v->id):?>selected = "selected"><?= $city_name; ?><?php else: ?>><?=$v->name ?><?php endif; ?></option>
@@ -89,6 +93,7 @@ var _config = {
 									<?php endif;?>
 								</select>
 							区：<select name='district_id'  class="district-sel">
+									<option value="0">----请选择----</option>
 									<?php if (!empty($area['districts'])):?>
 									<?php foreach ($area['districts'] as $k => $v):?>
 										<option value='<?=$v['id'];?>' <?php if ($district_id == $v->id):?>selected = "selected"><?= $district_name; ?><?php else: ?>><?=$v->name ?><?php endif; ?></option>
