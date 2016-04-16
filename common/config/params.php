@@ -7,7 +7,7 @@ return [
     'upload_path' => 'kitty/data/upload/',//图片上传之后保存目录(这个是以web根目录的为基准的)
     'lbsyun' => [
         'web_map_api' => 'http://api.map.baidu.com/api?v=2.0&ak=7QueCRjcCpxZEqhNdTHr9oD1A6G0rlD4',//web端的地图API
-    ],    
+    ],
     //订单状态
     'order_status' => [
         '1' => '待消费',

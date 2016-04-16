@@ -132,7 +132,6 @@ $(function() {
 							<input id='latitude' type="text" name='latitude' readonly  value="<?= $latitude; ?>" />
 						</div>
 					</div>
-					
 					<div class="control-group">
 						<label class="control-label">地图</label>
 						<div class="controls">

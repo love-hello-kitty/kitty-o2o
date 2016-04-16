@@ -44,7 +44,7 @@ $this->params = ['breadcrumb'  => [['name' => '商家管理','url' => '#','curre
 				   <?php foreach ($models AS $k => $v): ?>
 					<tr id="tr_<?= $v['id'] ?>">
 						<td><input type="checkbox" /></td>
-						<td><?= $v['store_name'] ?></td>
+						<td><?= $v['name'] ?></td>
 						<td><?= $v['province_name'] ?></td>
 						<td><?= $v['city_name'] ?></td>
 						<td><?= $v['district_name'] ?></td>

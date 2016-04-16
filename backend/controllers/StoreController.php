@@ -2,14 +2,11 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Store;
-use common\helpers\Out;
-use common\helpers\Common;
-use backend\base\BaseBackController;
-use backend\helpers\Error;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
+use backend\base\BaseBackController;
+use backend\helpers\Error;
 use common\components\LbsCloud;
 use common\components\Uploader;
 use common\models\Province;
@@ -17,6 +14,9 @@ use common\models\City;
 use common\models\District;
 use common\models\Material;
 use common\models\StoreAccount;
+use common\models\Store;
+use common\helpers\Out;
+use common\helpers\Common;
 
 //商家管理控制器
 class StoreController extends BaseBackController
@@ -24,13 +24,13 @@ class StoreController extends BaseBackController
 	//动作之前设置一些参数
 	public function beforeAction($action) {
 		if (parent::beforeAction($action)) {
-			Yii::$app->uploader->savePath = '@upload/' . 'system';
+			Yii::$app->uploader->savePath = '@upload/system';
 			return true;
 		}else{
 			return false;
 		}
 	}
-	
+
     //操作类型控制
     public function behaviors() {
         return [
@@ -102,7 +102,7 @@ class StoreController extends BaseBackController
     		'area'		=> $area
     	]);
     }
-    
+
     /**
      * 创建一个商家
      */
@@ -146,6 +146,7 @@ class StoreController extends BaseBackController
     	$model->latitude = trim($post['latitude']);
     	$model->linkman = trim($post['linkman']);
     	$model->phone = trim($post['phone']);
+    	$model->brief = $post['brief'];
     	$model->create_time = time();
     	$model->update_time = time();
     	//商家LOGO图片
@@ -159,6 +160,7 @@ class StoreController extends BaseBackController
     		if (!empty($img_info)) {
     			$material_model = new Material;
     			$material_model->name = $img_info['name'];//原始文件名
+    			$material_model->host = Yii::$app->params['upload_url'];//域名部分
     			$material_model->filepath = 'system' . '/' . $img_info['secondfilePath'];
     			$material_model->filename = $img_info['savename'];
     			$material_model->type = 'image';
@@ -193,7 +195,7 @@ class StoreController extends BaseBackController
     		throw new NotFoundHttpException(Yii::t('yii','创建失败'));
     	}
     }
-    
+
     /**
      * 更新一个商家
      */
@@ -241,6 +243,7 @@ class StoreController extends BaseBackController
         $model->latitude = trim($post['latitude']);
         $model->linkman = trim($post['linkman']);
         $model->phone = trim($post['phone']);
+        $model->brief = $post['brief'];
         $model->update_time = time();
         //商品图片
         if (!empty($_FILES['logo_pic']) && $_FILES['logo_pic']['error'] === 0) {
@@ -253,6 +256,7 @@ class StoreController extends BaseBackController
         	if (!empty($img_info)) {
         		$material_model = new Material;
         		$material_model->name = $img_info['name'];//原始文件名
+        		$material_model->host = Yii::$app->params['upload_url'];//域名部分
         		$material_model->filepath = 'system' . '/' . $img_info['secondfilePath'];
         		$material_model->filename = $img_info['savename'];
         		$material_model->type = 'image';
@@ -340,7 +344,7 @@ class StoreController extends BaseBackController
 					->all();
 		Error::output(Error::SUCCESS,$citys);
     }
-    
+
     /**
      * 根据city_id得到districts
      */
@@ -354,7 +358,7 @@ class StoreController extends BaseBackController
 				    	->all();
     	Error::output(Error::SUCCESS,$districts);
     }
-    
+
     //为商家分配账号
     public function actionAllocate() {
         $store_id = intval(Yii::$app->request->post('store_id'));
