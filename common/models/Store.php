@@ -81,4 +81,29 @@ class Store extends \yii\db\ActiveRecord
             'order_id' => '排序ID',
         ];
     }
+
+    //获取省份 
+    public function getProvince() {
+        return $this->hasOne(Province::className(), ['id' => 'province_id']);
+    }
+ 
+    //获取所属城市 
+    public function getCity() {
+        return $this->hasOne(City::className(), ['id' => 'city_id']);
+    } 
+ 
+    //获取区县 
+    public function getDistrict() {
+        return $this->hasOne(District::className(), ['id' => 'district_id']);
+    }
+
+    //获取商家LOGO图片
+    public function getStoreLogo() {
+        return $this->hasOne(Material::className(), ['id' => 'logo_id']);
+    }
+
+    //获取商家账号
+    public function getStoreAccount() {
+        return $this->hasOne(StoreAccount::className(), ['store_id' => 'id']);
+    }
 }
