@@ -77,7 +77,7 @@ $(document).ready(function(){
 								<option value="0">---所有商家---</option>
 								<?php if (!empty($store_info)):?>
 								<?php foreach ($store_info AS $k => $v):?>
-								<option value="<?=$v->id?>" <?php if ($cur_store_id == intval($v->id)) :?>selected<?php endif;?>><?=$v->store_name?></option>
+								<option value="<?=$v->id?>" <?php if ($cur_store_id == intval($v->id)) :?>selected<?php endif;?>><?=$v->name?></option>
 								<?php endforeach;?>
 								<?php endif;?>
 							</select>
