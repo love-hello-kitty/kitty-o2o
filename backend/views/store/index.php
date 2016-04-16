@@ -54,9 +54,6 @@ $this->params = ['breadcrumb'  => [['name' => '商家管理','url' => '#','curre
 						<td>
 						   <a href="<?= Url::to(['store/form','id' => $v['id']]);?>" class="btn btn-primary"><i class="icon-pencil icon-white"></i>商家编辑</a>
 						   <a href="javascript:void(0);" _id=<?= $v['id'] ?> class="btn btn-danger remove-row"><i class="icon-remove icon-white"></i>删除</a>
-						   <!-- 
-						   <a href="<?= Url::to(['admin-store/index','store_id' => $v['id']]);?>" class="btn btn-success"><i class="icon-briefcase icon-white"></i>管理商家</a>
-						   -->
 						   <?php if (!empty($v['has_account'])) :?>
 						   <a href="javascript:void(0);" _id=<?= $v['id'] ?> class="btn btn-info account-info"><i class="icon-briefcase icon-white"></i>账号信息</a>
 						   <?php else:?>
@@ -73,16 +70,11 @@ $this->params = ['breadcrumb'  => [['name' => '商家管理','url' => '#','curre
    							<strong>友情提醒！</strong> 目前还没有商家入驻
    						</div>
 					   </td>
-			      </tr>
+			      	</tr>
 					<?php endif; ?>
 				</tbody>
 			</table>
 			<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix">
-			      <!--
-   			   <div class="dataTables_filter" style="margin-top:-4px;margin-left: 14px;">
-      			   <label>搜索: <input type="text"></label>
-      			</div>
-      			-->
       			<div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers">
          			<div class="pagination alternate">
 						<?php echo LinkPager::widget(['pagination' => $pages]);?>

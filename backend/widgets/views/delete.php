@@ -42,7 +42,7 @@ $(document).ready(function(){
          url: url,
          data:{id:id,_csrf:_csrf},
          success: function(obj){
-            var obj = eval('(' + obj + ')');
+            var obj = JSON.parse(obj);
             if (parseInt(obj.errorCode) == 0) {
                $('#AlertSuccess').fadeIn('fast',function(){
                   $(this).fadeOut(2000,function(){

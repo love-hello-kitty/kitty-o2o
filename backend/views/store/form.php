@@ -60,9 +60,11 @@ $(function() {
 					</div>
 					<div class="control-group">
 						<label class="control-label">门店LOGO</label>
+						<?php if (!empty($logo_pic_url)) :?>
 						<div class="controls">
 							<img src="<?php echo $logo_pic_url;?>" width="160px;" height="120px;" />
 						</div>
+						<?php endif;?>
 						<div class="controls">
 							<input type="file" name="logo_pic" />
 						</div>
@@ -121,28 +123,18 @@ $(function() {
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label">坐标（经度）</label>
-						<div class="controls">
-							<input id='longitude' type="text" name='longitude' readonly  value="<?= $longitude; ?>" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label">坐标（纬度）</label>
-						<div class="controls">
-							<input id='latitude' type="text" name='latitude' readonly  value="<?= $latitude; ?>" />
-						</div>
-					</div>
-					<div class="control-group">
 						<label class="control-label">地图</label>
 						<div class="controls">
 							<div id='map' style='width:80%;height:500px;'></div>
 						</div>
 					</div>
 					<div class="form-actions">
-						<input type="hidden" name="id" value="<?= $id ?>" />
-						<input type="hidden" name="poi_id" value="<?= $poi_id ?>" />
+						<input type="hidden" name="id" value="<?=$id ?>" />
+						<input type="hidden" name="poi_id" value="<?=$poi_id ?>" />
+						<input type="hidden" name='longitude' value="<?=$longitude; ?>" />
+						<input type="hidden" name='latitude'  value="<?=$latitude; ?>" />
 						<input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
-						<button type="submit" class="btn btn-primary"><?= $op_text;?></button>
+						<button type="submit" class="btn btn-primary"><?=$op_text;?></button>
 					</div>
 				</form>
 			</div>

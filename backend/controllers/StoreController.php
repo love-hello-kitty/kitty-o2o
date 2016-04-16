@@ -7,8 +7,6 @@ use yii\filters\VerbFilter;
 use yii\data\Pagination;
 use backend\base\BaseBackController;
 use backend\helpers\Error;
-use common\components\LbsCloud;
-use common\components\Uploader;
 use common\models\Province;
 use common\models\City;
 use common\models\District;
@@ -300,7 +298,7 @@ class StoreController extends BaseBackController
         $poi_id = $store->poi_id;
         if ($this->findModel($id)->delete()) {
         	//同时删除lbs上数据
-           Yii::$app->lbscloud->deletePoi($poi_id);
+           //Yii::$app->lbscloud->deletePoi($poi_id);
            Error::output(Error::SUCCESS);
         }else{
            Error::output(Error::ERR_FAIL);
