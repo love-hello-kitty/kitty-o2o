@@ -34,7 +34,7 @@ AppAsset::register($this);
 	<!-- 右侧导航栏 -->
 	<div id="user-nav" class="navbar navbar-inverse">
         <ul class="nav btn-group">
-            <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text"><?php echo Yii::$app->session['__adminmanger']['username'];?></span></a></li>
+            <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span class="text"><?php echo Yii::$app->user->identity->username;?></span></a></li>
             <!-- 
             <li class="btn btn-inverse dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">5</span> <b class="caret"></b></a>
                 <ul class="dropdown-menu">

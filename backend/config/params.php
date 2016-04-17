@@ -1,6 +1,5 @@
 <?php
 return [
-    'admin_session_name' => '__KITTY_O2O_ADMIN',
      //后台菜单
     'admin_menus' => [
          ['name' => '首页','url'  => ['admin/index'],'mark' => 'admin','icon' => 'icon-home'],
