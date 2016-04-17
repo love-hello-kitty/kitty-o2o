@@ -4,50 +4,35 @@ namespace backend\controllers;
 
 use Yii;
 use backend\base\BaseBackController;
-use backend\models\AdminUser;
 use backend\helpers\Error;
+use backend\models\LoginForm;
 
 //后台登录首页相关控制器
-define('NO_LOGIN',true);
 class LoginController extends BaseBackController
 {
-    //登录界面
-    public function actionIndex() {
-        $this->layout = 'login';
-        $session = Yii::$app->session;
-        //如果已经登陆，点击登陆跳到指定界面
-    	if(!empty($session[Yii::$app->params['admin_session_name']])) {
-    		$this->redirect(['admin/index']);
-    	}else{
-    		return $this->render('index');
-    	}
-    }
-
+    public $layout = 'login';
     //执行登录动作
     public function actionLogin() {
-        $username = Yii::$app->request->post('username');
-    	$password = Yii::$app->request->post('password');
-    	if(empty($username)) {
-    		$this->redirect(['login/index']);
-    	}
-    	if(empty($password)) {
-    		$this->redirect(['login/index']);
-    	}
-    	$admin_user = new AdminUser();
-    	$ret = $admin_user->login($username , $password);
-    	if($ret === Error::SUCCESS) {
-    		$this->redirect(['admin/index']);
-    	}else{
-    		$this->redirect(['login/index']);
-    	}
+        //已经登录就跳到后台首页
+        if (!\Yii::$app->user->isGuest) {
+            $this->redirect(['admin/index']);
+        }
+        $model = new LoginForm();
+        $post = Yii::$app->request->post();
+        $model->username = $post['username'];
+        $model->password = $post['password'];
+        if ($model->validate() && $model->login()) {
+            //登录成功就跳转到后台首页
+            $this->redirect(['admin/index']);
+        } else {
+            //登录失败就回到登录界面
+            return $this->render('index');
+        }
     }
 
     //退出登陆
     public function actionLogout() {
-        $session = Yii::$app->session;
-    	if(isset($session[Yii::$app->params['admin_session_name']])) {
-    		Yii::$app->session->remove(Yii::$app->params['admin_session_name']);
-    	}
-    	$this->redirect(['login/index']);
+        Yii::$app->user->logout();
+        return $this->redirect(['login/login']);
     }
 }

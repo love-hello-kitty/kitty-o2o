@@ -4,6 +4,8 @@ namespace backend\models;
 
 use Yii;
 use backend\helpers\Error;
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "{{%kt_admin_user}}".
@@ -13,30 +15,32 @@ use backend\helpers\Error;
  * @property string $password
  * @property string $salt
  * @property integer $status
+ * @property string $auth_key
  * @property integer $create_time
  * @property integer $update_time
  * @property integer $order_id
  */
-class AdminUser extends \yii\db\ActiveRecord
+class AdminUser extends ActiveRecord implements IdentityInterface
 {
+    const STATUS_ACTIVE = 1;  //正常状态
+    const STATUS_BLOCK  = 2; //被封禁
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%admin_user}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['username', 'password', 'salt'], 'required'],
+            [['username', 'password', 'salt', 'auth_key'], 'required'],
             [['status', 'create_time', 'update_time', 'order_id'], 'integer'],
             [['username'], 'string', 'max' => 20],
-            [['password'], 'string', 'max' => 60],
+            [['password','auth_key'], 'string', 'max' => 60],
             [['salt'], 'string', 'max' => 10],
         ];
     }
@@ -44,37 +48,76 @@ class AdminUser extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => '自增ID',
             'username' => '用户名称',
             'password' => '密码',
             'salt' => '干扰码',
             'status' => '用户状态1:正常 2被封禁',
+            'auth_key' => 'Auth Key',
             'create_time' => '创建时间',
             'update_time' => '更新时间',
             'order_id' => '排序ID',
         ];
     }
 
-    //执行后台登录操作
-    public function login($username = '' , $password = '') {
-    	$admin_user = AdminUser::find()
-    			->where(['username' => $username,'status' => 1])
-    			->one();
-    	if (!$admin_user) {
-    		return Error::ERR_NOUSER;
-    	}
-    	$_password = md5($admin_user->salt . $password);
-    	if ($_password != $admin_user->password) {
-    		return Error::ERR_PASSWORD;
-    	} else {
-    		Yii::$app->session->set(Yii::$app->params['admin_session_name'],[
-    			'id'			=> $admin_user->id,
-    			'username'      => $admin_user->username
-    		]);
-    		return Error::SUCCESS;
-    	}
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentity($id) {
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentityByAccessToken($token, $type = null) {
+        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+    }
+
+    /**
+     * Finds user by username
+     *
+     * @param string $username
+     * @return static|null
+     */
+    public static function findByUsername($username) {
+        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getId() {
+        return $this->getPrimaryKey();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAuthKey() {
+        return $this->auth_key;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validateAuthKey($authKey) {
+        return $this->getAuthKey() === $authKey;
+    }
+
+    //验证密码(自定义)
+    public function validatePassword($password) {
+        //根据规则生成用于验证的密码与库里面密码进行比较
+    	$validate_password = md5($this->salt . $password);
+    	return $validate_password == $this->password;
+    }
+
+ 	/**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey() {
+        $this->auth_key = Yii::$app->security->generateRandomString();
     }
 }

@@ -14,6 +14,11 @@ $config = [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
+        'user' => [
+            'identityClass' => 'backend\models\AdminUser',
+            'enableAutoLogin' => true,
+            'loginUrl' => ['login/login']
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -33,7 +38,7 @@ $config = [
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'showScriptName' => true,
             'rules' => [
             ],
         ],

@@ -14,6 +14,17 @@ class BaseBackController extends Controller
 {
 	public function behaviors() {
 		return [
+		    'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
 			'verbs' => [
 				'class' => VerbFilter::className(),
 				'actions' => [
@@ -22,16 +33,4 @@ class BaseBackController extends Controller
 			],
 		];
 	}
-
-    public function beforeAction($action) {
-	    if (parent::beforeAction($action)) {
-	        $session = Yii::$app->session;
-	        if (empty($session[Yii::$app->params['admin_session_name']]) && (!defined('NO_LOGIN') || !NO_LOGIN)) {
-	            $this->redirect(['login/index']);
-	        }
-	        return true;
-	    }else{
-	        return false;
-	    }
-    }
 }
