@@ -3,7 +3,7 @@
     <img src="<?php echo Yii::$app->request->baseUrl; ?>/img/logo.png" alt="伙伴咖啡--商家后台" />
 </div>
 <div id="loginbox">            
-    <form id="loginform" class="form-vertical" action="<?php echo Url::to(['account/dologin']);?>" method="post" />
+    <form id="loginform" class="form-vertical" action="<?php echo Url::to(['account/index']);?>" method="post" />
 		<p>请输入账户名和密码</p>
         <div class="control-group">
             <div class="controls">

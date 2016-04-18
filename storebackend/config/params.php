@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Url;
 return [
-    'store_admin_session_name' => '__KITTY_O2O_STOREADMIN',
     'admin_menus' => [
          ['name' => '首页','url'  => ['admin/index'],'mark' => 'admin','icon' => 'icon-home'],
          ['name' => '门店管理','url'  => '#','mark' => 'store','icon' => 'icon-tags','submenus' => [

@@ -4,7 +4,8 @@ namespace common\models;
 
 use Yii;
 use storebackend\helpers\Error;
-use Yii\db\ActiveRecord;
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "{{%kt_store_account}}".
@@ -21,6 +22,9 @@ use Yii\db\ActiveRecord;
  */
 class StoreAccount extends ActiveRecord implements IdentityInterface
 {
+    const STATUS_ACTIVE = 1;  //正常状态
+    const STATUS_BLOCK  = 2; //被封禁
+
     /**
      * @inheritdoc
      */
@@ -61,32 +65,63 @@ class StoreAccount extends ActiveRecord implements IdentityInterface
             'order_id' => '排序ID',
         ];
     }
-    
-    //执行登录操作
-    public function login($account_name = '' , $password = '') {
-    	$account = StoreAccount::find()
-    			->where(['account_name' => $account_name,'status' => 1])
-    			->one();
-    	if (!$account) {
-    		return Error::ERR_NOUSER;
-    	}
-    	$_password = md5($account->salt . $password);
-    	if ($_password != $account->password) {
-    		return Error::ERR_PASSWORD;
-    	} else {
-    	    //获取商家的信息
-    	    $store = Store::findOne(['id' => $account->store_id,'status' => 2]);
-    	    if (empty($store)) {
-    	        return Error::ERR_NO_STORE;
-    	    }
 
-    		Yii::$app->session->set(Yii::$app->params['store_admin_session_name'],array(
-    			'id'			=> $account->id,
-    			'store_id'	    => $account->store_id,
-    			'account_name'  => $account->account_name,
-    		    'store_name'    => $store->name
-    		));
-    		return Error::SUCCESS;
-    	}
+	/**
+     * @inheritdoc
+     */
+    public static function findIdentity($id) {
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentityByAccessToken($token, $type = null) {
+        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+    }
+
+    /**
+     * Finds user by username
+     *
+     * @param string $username
+     * @return static|null
+     */
+    public static function findByUsername($username) {
+        return static::findOne(['account_name' => $username, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getId() {
+        return $this->getPrimaryKey();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAuthKey() {
+        //return $this->auth_key;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validateAuthKey($authKey) {
+        return $this->getAuthKey() === $authKey;
+    }
+
+    //验证密码(自定义)
+    public function validatePassword($password) {
+        //根据规则生成用于验证的密码与库里面密码进行比较
+    	$validate_password = md5($this->salt . $password);
+    	return $validate_password == $this->password;
+    }
+
+ 	/**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey() {
+        //$this->auth_key = Yii::$app->security->generateRandomString();
     }
 }

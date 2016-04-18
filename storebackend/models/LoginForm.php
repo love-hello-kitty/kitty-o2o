@@ -1,8 +1,11 @@
 <?php
 namespace storebackend\models;
 
+use common\helpers\Common;
+
 use Yii;
 use yii\base\Model;
+use common\models\StoreAccount;
 
 /**
  * Login form
@@ -70,7 +73,7 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = AdminUser::findByUsername($this->username);
+            $this->_user = StoreAccount::findByUsername($this->username);
         }
 
         return $this->_user;
