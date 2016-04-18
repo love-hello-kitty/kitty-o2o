@@ -37,14 +37,14 @@ $(document).ready(function(){
 			<h5>订单统计筛选</h5>
 		</div>
 		<div class="widget-content nopadding">
-			<form action="<?php echo Url::to(['statistics/index']);?>" method="get">
+			<form action="<?php echo Url::to(['statistics/index']);?>" method="post">
 			<table class="table table-bordered table-striped">
 				<tbody>
 					<tr>
 						<td>
 							<span>付款方式：</span>
 							<select name="pay_type">
-								<?php $cur_pay_type = intval(Yii::$app->request->get('pay_type',0));?>
+								<?php $cur_pay_type = intval(Yii::$app->request->post('pay_type',0));?>
 								<?php foreach (Yii::$app->params['pay_type'] AS $k => $v):?>
 								<option value="<?=$k?>" <?php if ($cur_pay_type == intval($k)) :?>selected<?php endif;?>><?=$v?></option>
 								<?php endforeach;?>
@@ -53,7 +53,7 @@ $(document).ready(function(){
 						<td>
 							<span>付款状态：</span>
 							<select name="pay_status">
-								<?php $cur_pay_status = intval(Yii::$app->request->get('pay_status',0));?>
+								<?php $cur_pay_status = intval(Yii::$app->request->post('pay_status',0));?>
 								<option value="0">所有付款状态</option>
 								<?php foreach (Yii::$app->params['order_pay_status'] AS $k => $v):?>
 								<option value="<?=$k?>" <?php if ($cur_pay_status == intval($k)) :?>selected<?php endif;?>><?=$v?></option>
@@ -63,7 +63,7 @@ $(document).ready(function(){
 						<td>
 							<span>订单状态：</span>
 							<select name="status">
-								<?php $cur_status = intval(Yii::$app->request->get('status',0));?>
+								<?php $cur_status = intval(Yii::$app->request->post('status',0));?>
 								<option value="0">所有订单状态</option>
 								<?php foreach (Yii::$app->params['order_status'] AS $k => $v):?>
 								<option value="<?=$k?>" <?php if ($cur_status == intval($k)) :?>selected<?php endif;?>><?=$v?></option>
@@ -73,7 +73,7 @@ $(document).ready(function(){
 						<td>
 							<span>所属商家：</span>
 							<select name="store_id">
-								<?php $cur_store_id = intval(Yii::$app->request->get('store_id',0));?>
+								<?php $cur_store_id = intval(Yii::$app->request->post('store_id',0));?>
 								<option value="0">---所有商家---</option>
 								<?php if (!empty($store_info)):?>
 								<?php foreach ($store_info AS $k => $v):?>
@@ -86,12 +86,12 @@ $(document).ready(function(){
 					<tr>
 						<td colspan="2">
 							<span>下单开始时间：</span>
-							<input type="text" class="date-time-picker" placeholder="下单开始时间" name="stime" value="<?=Yii::$app->request->get('stime',''); ?>" style="margin-top:9px;" />
+							<input type="text" class="date-time-picker" placeholder="下单开始时间" name="stime" value="<?=Yii::$app->request->post('stime',''); ?>" style="margin-top:9px;" />
 							<input type="button" class="btn btn-primary clear-date" value="清除" style="margin-left:10px;" />
 						</td>
 						<td colspan="2">
 							<span>下单结束时间：</span>
-							<input type="text" class="date-time-picker" placeholder="下单结束时间" name="etime" value="<?=Yii::$app->request->get('etime',''); ?>" style="margin-top:9px;" />
+							<input type="text" class="date-time-picker" placeholder="下单结束时间" name="etime" value="<?=Yii::$app->request->post('etime',''); ?>" style="margin-top:9px;" />
 							<input type="button" class="btn btn-primary clear-date" value="清除" style="margin-left:10px;" />
 						</td>
 					</tr>
@@ -114,7 +114,6 @@ $(document).ready(function(){
 			<h5>统计结果</h5>
 		</div>
 		<div class="widget-content nopadding">
-			<form action="<?php echo Url::to(['statistics/index']);?>" method="get">
 			<table class="table table-bordered table-striped">
 				<tbody>
 					<tr>
@@ -139,7 +138,6 @@ $(document).ready(function(){
 					</tr>
 				</tbody>
 			</table>
-			</form>
 		</div>
 	</div>
 </div>
