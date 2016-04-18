@@ -3,7 +3,7 @@
     <img src="<?php echo Yii::$app->request->baseUrl; ?>/img/logo.png" alt="KITTY--后台管理" />
 </div>
 <div id="loginbox">            
-    <form id="loginform" class="form-vertical" action="<?php echo Url::to(['login/login']);?>" method="post" />
+    <form id="loginform" class="form-vertical" action="<?php echo Url::to(['login/index']);?>" method="post" />
 		<p>请输入用户名和密码</p>
         <div class="control-group">
             <div class="controls">

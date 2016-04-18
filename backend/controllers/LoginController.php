@@ -8,11 +8,12 @@ use backend\helpers\Error;
 use backend\models\LoginForm;
 
 //后台登录首页相关控制器
+define('NO_LOGIN',true);
 class LoginController extends BaseBackController
 {
     public $layout = 'login';
     //执行登录动作
-    public function actionLogin() {
+    public function actionIndex() {
         //已经登录就跳到后台首页
         if (!\Yii::$app->user->isGuest) {
             $this->redirect(['admin/index']);
@@ -33,6 +34,6 @@ class LoginController extends BaseBackController
     //退出登陆
     public function actionLogout() {
         Yii::$app->user->logout();
-        return $this->redirect(['login/login']);
+        return $this->redirect(['login/index']);
     }
 }

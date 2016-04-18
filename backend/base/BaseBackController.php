@@ -12,25 +12,14 @@ use yii\filters\AccessControl;
 
 class BaseBackController extends Controller
 {
-	public function behaviors() {
-		return [
-		    'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-			'verbs' => [
-				'class' => VerbFilter::className(),
-				'actions' => [
-					'logout' => ['post','get'],
-				],
-			],
-		];
-	}
+    public function beforeAction($action) {
+	    if (parent::beforeAction($action)) {
+    	    if (Yii::$app->user->isGuest && (!defined('NO_LOGIN') || !NO_LOGIN)) {
+                $this->redirect(['login/index']);
+            }
+	        return true;
+	    }else{
+	        return false;
+	    }
+    }
 }
