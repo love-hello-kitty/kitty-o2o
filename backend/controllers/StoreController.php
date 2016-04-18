@@ -371,7 +371,7 @@ class StoreController extends BaseBackController
         }
         $store_account = new StoreAccount();
         $store_account->store_id = $store_id;
-        $store_account->account_name = 'coffee' . $store_id;
+        $store_account->account_name = 'kitty' . $store_id;
         $salt = Common::getGenerateSalt();
 		$store_account->password = md5($salt.'123456');
 		$store_account->salt = $salt;
