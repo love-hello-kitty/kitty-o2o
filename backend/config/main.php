@@ -16,8 +16,7 @@ $config = [
     'components' => [
         'user' => [
             'identityClass' => 'backend\models\AdminUser',
-            'enableAutoLogin' => true,
-            'loginUrl' => ['login/login']
+            'enableAutoLogin' => true
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

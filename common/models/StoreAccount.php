@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use storebackend\helpers\Error;
+use Yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%kt_store_account}}".
@@ -18,7 +19,7 @@ use storebackend\helpers\Error;
  * @property integer $update_time
  * @property integer $order_id
  */
-class StoreAccount extends \yii\db\ActiveRecord
+class StoreAccount extends ActiveRecord implements IdentityInterface
 {
     /**
      * @inheritdoc
