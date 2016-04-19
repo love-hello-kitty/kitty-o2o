@@ -1,14 +1,13 @@
 <?php
 namespace storebackend\controllers;
 
-use common\models\Membership;
-
 use Yii;
-use storebackend\base\BaseBackController;
 use yii\web\NotFoundHttpException;
+use storebackend\base\BaseBackController;
 use storebackend\helpers\Error;
 use common\helpers\Common;
 use common\models\GoodsOrder;
+use common\models\Membership;
 
 //统计管理模块
 class StatisticsController extends BaseBackController

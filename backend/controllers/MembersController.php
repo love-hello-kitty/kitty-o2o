@@ -3,11 +3,11 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Members;
-use backend\base\BaseBackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
+use backend\base\BaseBackController;
+use common\models\Members;
 
 //用户管理控制器
 class MembersController extends BaseBackController

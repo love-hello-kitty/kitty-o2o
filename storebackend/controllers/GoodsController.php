@@ -3,17 +3,16 @@
 namespace storebackend\controllers;
 
 use Yii;
-use common\models\Goods;
-use yii\data\ActiveDataProvider;
-use storebackend\base\BaseBackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
+use yii\helpers\Json;
+use storebackend\base\BaseBackController;
 use storebackend\helpers\Error;
 use common\models\Material;
 use common\models\GoodsPrice;
 use common\models\GoodsSort;
-use yii\helpers\Json;
+use common\models\Goods;
 
 //商品管理控制器
 class GoodsController extends BaseBackController

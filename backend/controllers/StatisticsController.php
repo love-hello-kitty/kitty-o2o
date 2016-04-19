@@ -1,14 +1,13 @@
 <?php
 namespace backend\controllers;
 
-use common\models\Store;
-
 use Yii;
-use backend\base\BaseBackController;
 use yii\web\NotFoundHttpException;
+use backend\base\BaseBackController;
 use common\helpers\Common;
 use common\models\GoodsOrder;
 use common\models\Members;
+use common\models\Store;
 
 //统计管理模块
 class StatisticsController extends BaseBackController

@@ -2,10 +2,10 @@
 namespace storebackend\controllers;
 
 use Yii;
-use storebackend\base\BaseBackController;
 use yii\web\NotFoundHttpException;
-use common\models\StoreAccount;
+use storebackend\base\BaseBackController;
 use storebackend\helpers\Error;
+use common\models\StoreAccount;
 use common\helpers\Common;
 
 //商家账号管理模块

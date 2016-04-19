@@ -2,15 +2,14 @@
 
 namespace storebackend\controllers;
 
-use common\models\OrderProduct;
-
 use Yii;
-use common\models\GoodsOrder;
-use storebackend\base\BaseBackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
+use storebackend\base\BaseBackController;
 use storebackend\helpers\Error;
+use common\models\GoodsOrder;
+use common\models\OrderProduct;
 
 //订单管理控制器
 class GoodsOrderController extends BaseBackController

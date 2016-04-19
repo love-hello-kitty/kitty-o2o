@@ -3,13 +3,12 @@
 namespace storebackend\controllers;
 
 use Yii;
-use common\models\GoodsSort;
-use yii\data\ActiveDataProvider;
-use storebackend\base\BaseBackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
+use storebackend\base\BaseBackController;
 use storebackend\helpers\Error;
+use common\models\GoodsSort;
 
 //商品分类控制器
 class GoodsSortController extends BaseBackController
