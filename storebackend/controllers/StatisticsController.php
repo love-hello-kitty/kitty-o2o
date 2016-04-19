@@ -16,9 +16,9 @@ class StatisticsController extends BaseBackController
     //统计页面
     public function actionIndex() {
         //获取订单总数
-        $pay_type = intval(Yii::$app->request->get('pay_type',0));//付款方式
-        $pay_status = intval(Yii::$app->request->get('pay_status',0));//付款付款状态
-        $status = intval(Yii::$app->request->get('status',0));//订单状态
+        $pay_type = intval(Yii::$app->request->post('pay_type',0));//付款方式
+        $pay_status = intval(Yii::$app->request->post('pay_status',0));//付款付款状态
+        $status = intval(Yii::$app->request->post('status',0));//订单状态
         
         $condition = ['store_id' => $this->store_id];
         if (!empty($pay_type)) {

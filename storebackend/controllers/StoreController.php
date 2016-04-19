@@ -2,10 +2,10 @@
 namespace storebackend\controllers;
 
 use Yii;
-use storebackend\base\BaseBackController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
+use storebackend\base\BaseBackController;
 use storebackend\helpers\Error;
 use common\models\Store;
 
@@ -31,11 +31,6 @@ class StoreController extends BaseBackController
             throw new NotFoundHttpException(Yii::t('yii','商家不存在'));
         }
         $store_info = $store_model->attributes;
-        if (!empty($store_info['store_service'])) {
-            $store_info['store_service'] = explode('|', $store_info['store_service']);
-        }else{
-            $store_info['store_service'] = [];
-        }
         return $this->render('index', [
               'store_info' => $store_info
         ]);
@@ -52,15 +47,6 @@ class StoreController extends BaseBackController
             throw new NotFoundHttpException(Yii::t('yii','请正确填写营业结束时间'));
         }
 
-        if (empty($post['store_area'])) {
-            throw new NotFoundHttpException(Yii::t('yii','门店面积不能为空'));
-        }
-
-        $store_service = '';
-        if (!empty($post['store_service'])) {
-            $store_service = implode('|', $post['store_service']);
-        } 
-
         $store_model = Store::findOne(['id' => intval($this->store_id),'status' => 2]);
         if (empty($store_model)) {
             throw new NotFoundHttpException(Yii::t('yii','商家不存在'));
@@ -68,10 +54,6 @@ class StoreController extends BaseBackController
 
         $store_model->open_stime = date('H:i:s',strtotime($post['open_stime']));
         $store_model->open_etime = date('H:i:s',strtotime($post['open_etime']));
-        $store_model->store_area = $post['store_area'];
-        $store_model->store_service = $store_service;
-        $store_model->coffeemaker = !empty($post['coffeemaker']) ? $post['coffeemaker'] : '';
-        $store_model->coffee_beans = !empty($post['coffee_beans']) ? $post['coffee_beans'] : '';
         if ($store_model->save()) {
             $this->redirect(['store/index']);
         }else{

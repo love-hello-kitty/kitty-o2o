@@ -1,6 +1,7 @@
 <?php
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
+    'language' => 'zh-CN',
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',

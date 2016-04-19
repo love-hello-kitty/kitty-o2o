@@ -10,13 +10,16 @@ $config = [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'defaultRoute' => 'admin',
-    'language' => 'zh-CN',
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
         'user' => [
             'identityClass' => 'backend\models\AdminUser',
             'enableAutoLogin' => true
+        ],
+        'session' => [
+            'class' => 'yii\web\Session',
+            'name' => 'BACKENDSSID',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -31,17 +34,14 @@ $config = [
             'errorAction' => 'error/error',
         ],
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'EJAYa-Fu9ujNHrceqLNgWIYDSqjdv9tZ',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => true,
             'rules' => [
             ],
-        ],
-        */
+        ]
     ],
     'params' => $params,
 ];

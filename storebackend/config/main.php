@@ -10,13 +10,16 @@ $config = [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'storebackend\controllers',
     'defaultRoute' => 'admin',
-    'language' => 'zh-CN',
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
         'user' => [
             'identityClass' => 'common\models\StoreAccount',
             'enableAutoLogin' => true
+        ],
+        'session' => [
+            'class' => 'yii\web\Session',
+            'name' => 'STOREBACKENDSSID',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -28,7 +31,6 @@ $config = [
             ],
         ],
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'Utph0VKUe5XJF_FkB6MMDApnQ1BZeotl',
         ],
         'errorHandler' => [
@@ -36,8 +38,7 @@ $config = [
         ],
          'urlManager' => [
                'enablePrettyUrl' => true,
-//             'showScriptName' => false,
-//             'suffix' => '.html' //定义伪静态
+               'showScriptName' => true,
          ],
     ],
     'params' => $params,
@@ -53,5 +54,3 @@ if (!YII_ENV_TEST) {
 }
 
 return $config;
-
-

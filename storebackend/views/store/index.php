@@ -42,7 +42,7 @@ $(document).ready(function(){
 					<div class="control-group">
 						<label class="control-label">店名</label>
 						<div class="controls">
-							<input type="text" readonly value="<?=$store_name ?>" />
+							<input type="text" readonly value="<?=$name ?>" />
 						</div>
 					</div>
 					<div class="control-group">
@@ -55,38 +55,6 @@ $(document).ready(function(){
 						<label class="control-label">营业结束时间</label>
 						<div class="controls">
 							<input type="text" id="open_etime" placeholder="营业结束时间" name="open_etime" value="<?= $open_etime ?>" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label">门店面积</label>
-						<div class="controls">
-							<input type="text" placeholder="门店面积" name="store_area" value="<?= $store_area ?>" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label">门店服务</label>
-						<div class="controls">
-							<?php foreach (Yii::$app->params['store_service'] AS $key => $value):?>
-							<?php 
-							    $checked = '';
-							    if (in_array($key, $store_service)) {
-							        $checked = " checked ";
-							    }
-							?>
-							<label><input type="checkbox" name="store_service[]" value="<?=$key?>" <?php echo $checked;?>/><?=$value?></label>
-							<?php endforeach;?>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label">咖啡机</label>
-						<div class="controls">
-							<input type="text" placeholder="咖啡机" name="coffeemaker" value="<?= $coffeemaker ?>" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label">咖啡豆</label>
-						<div class="controls">
-							<input type="text" placeholder="咖啡豆" name="coffee_beans" value="<?= $coffee_beans ?>" />
 						</div>
 					</div>
 					<div class="form-actions">
