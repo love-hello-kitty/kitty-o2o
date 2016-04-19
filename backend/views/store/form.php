@@ -130,7 +130,6 @@ $(function() {
 					</div>
 					<div class="form-actions">
 						<input type="hidden" name="id" value="<?=$id ?>" />
-						<input type="hidden" name="poi_id" value="<?=$poi_id ?>" />
 						<input type="hidden" name='longitude' value="<?=$longitude; ?>" />
 						<input type="hidden" name='latitude'  value="<?=$latitude; ?>" />
 						<input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">

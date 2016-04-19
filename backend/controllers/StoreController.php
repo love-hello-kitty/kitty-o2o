@@ -135,18 +135,18 @@ class StoreController extends BaseBackController
     		throw new NotFoundHttpException(Yii::t('yii','纬度不能为空'));
     	}
     	$model = new Store();
-    	$model->name = $post['name'];
-    	$model->province_id = intval($post['province_id']);
-    	$model->city_id = $post['city_id'];
-    	$model->district_id = $post['district_id'];
-    	$model->address = trim($post['address']);
-    	$model->longitude = trim($post['longitude']);
-    	$model->latitude = trim($post['latitude']);
-    	$model->linkman = trim($post['linkman']);
-    	$model->phone = trim($post['phone']);
-    	$model->brief = $post['brief'];
-    	$model->create_time = time();
-    	$model->update_time = time();
+    	$model->name         = $post['name'];
+    	$model->province_id  = intval($post['province_id']);
+    	$model->city_id      = $post['city_id'];
+    	$model->district_id  = $post['district_id'];
+    	$model->address      = trim($post['address']);
+    	$model->longitude    = trim($post['longitude']);
+    	$model->latitude     = trim($post['latitude']);
+    	$model->linkman      = trim($post['linkman']);
+    	$model->phone        = trim($post['phone']);
+    	$model->brief        = $post['brief'];
+    	$model->create_time  = time();
+    	$model->update_time  = time();
     	//商家LOGO图片
     	if (!empty($_FILES['logo_pic']) && $_FILES['logo_pic']['error'] === 0) {
     		$ret = Yii::$app->uploader->upload($_FILES['logo_pic']);
@@ -172,21 +172,20 @@ class StoreController extends BaseBackController
     			}
     		}
     	}
-    	if($model->save()) { 
+    	if($model->save()) {
     		$model->order_id = $model->id;
-//      		//将数据上传值lbs云
-//      		$ret = Yii::$app->lbscloud->savePoi([
-//  					'store_name' 	=> $post['store_name'],
-//      				'brief' 		=> $post['brief'],
-//      				'address' 		=> $post['address'],
-//      				'longitude' 	=> $post['longitude'],
-//      				'latitude' 		=> $post['latitude'],
-//      				'status'		=> 1
-//      			]
-//  			);
-//      		if(!empty($ret) && $ret['status'] == 0) {
-//      			$model->poi_id = $ret['id'];
-//      		}
+      		//将数据上传值lbs云
+      		$ret = Yii::$app->lbscloud->savePoi([
+      		        'store_id'		=> intval($model->id),
+  					'name' 	        => $post['name'],
+      				'brief' 		=> $post['brief'],
+      				'address' 		=> $post['address'],
+      				'longitude' 	=> $post['longitude'],
+      				'latitude' 		=> $post['latitude'],
+      		]);
+      		if(!empty($ret) && $ret['status'] == 0) {
+      			$model->poi_id = intval($ret['id']);
+      		}
      		$model->save();
     		$this->redirect(['store/index']);
     	} else {
@@ -232,17 +231,17 @@ class StoreController extends BaseBackController
         	throw new NotFoundHttpException(Yii::t('yii','纬度不能为空'));
         }
         $model = $this->findModel(intval($post['id']));
-        $model->name = $post['name'];
-        $model->province_id = intval($post['province_id']);
-        $model->city_id = $post['city_id'];
-        $model->district_id = $post['district_id'];
-        $model->address = trim($post['address']);
-        $model->longitude = trim($post['longitude']);
-        $model->latitude = trim($post['latitude']);
-        $model->linkman = trim($post['linkman']);
-        $model->phone = trim($post['phone']);
-        $model->brief = $post['brief'];
-        $model->update_time = time();
+        $model->name         = $post['name'];
+        $model->province_id  = intval($post['province_id']);
+        $model->city_id      = $post['city_id'];
+        $model->district_id  = $post['district_id'];
+        $model->address      = trim($post['address']);
+        $model->longitude    = trim($post['longitude']);
+        $model->latitude     = trim($post['latitude']);
+        $model->linkman      = trim($post['linkman']);
+        $model->phone        = trim($post['phone']);
+        $model->brief        = $post['brief'];
+        $model->update_time  = time();
         //商品图片
         if (!empty($_FILES['logo_pic']) && $_FILES['logo_pic']['error'] === 0) {
         	$ret = Yii::$app->uploader->upload($_FILES['logo_pic']);
@@ -269,19 +268,19 @@ class StoreController extends BaseBackController
         	}
         }
         if($model->save()) {
-//     		//将数据上传值lbs云
-//     		$ret = Yii::$app->lbscloud->updatePoi([
-//     				'store_name' 	=> $post['store_name'],
-//     				'brief' 		=> $post['brief'],
-//     				'address' 		=> $post['address'],
-//     				'longitude' 	=> $post['longitude'],
-//     				'latitude' 		=> $post['latitude'],
-//     				'poi_id' 		=> $post['poi_id'],
-//     				]
-//     		);
-//     		if(empty($ret) || $ret['status'] != 0) {
-//     		    throw new NotFoundHttpException(Yii::t('yii','LBS云同步失败'));
-//     		}
+     		//将数据上传值lbs云
+     		$ret = Yii::$app->lbscloud->updatePoi([
+     		        'store_id'		=> intval($post['id']),
+     				'name' 	        => $post['name'],
+     				'brief' 		=> $post['brief'],
+     				'address' 		=> $post['address'],
+     				'longitude' 	=> $post['longitude'],
+     				'latitude' 		=> $post['latitude'],
+     				'poi_id' 		=> intval($model->poi_id),
+     		]);
+     		if(empty($ret) || $ret['status'] != 0) {
+     		    throw new NotFoundHttpException(Yii::t('yii','LBS云同步失败'));
+     		}
         	$this->redirect(['store/index']);
         } else {
         	throw new NotFoundHttpException(Yii::t('yii','创建失败'));
@@ -297,8 +296,8 @@ class StoreController extends BaseBackController
         $store = $this->findModel($id);
         $poi_id = $store->poi_id;
         if ($this->findModel($id)->delete()) {
-        	//同时删除lbs上数据
-           //Yii::$app->lbscloud->deletePoi($poi_id);
+           //同时删除lbs上数据
+           Yii::$app->lbscloud->deletePoi($poi_id);
            Error::output(Error::SUCCESS);
         }else{
            Error::output(Error::ERR_FAIL);

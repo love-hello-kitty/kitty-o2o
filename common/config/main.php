@@ -14,9 +14,6 @@ return [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'cache' => [
@@ -31,6 +28,13 @@ return [
         'uploader' => [
 			'class' => 'common\components\Uploader',
 			'allowExts' => ['jpg','jpeg','bmp','png','gif']
+		],
+		'lbscloud' => [
+		    'class'  => 'common\components\LbsCloud',
+		    'config' => [
+		                    'ak' => 'i1Pf71ChI2rHYR8lX2fbG6QhwKqH1XMV',//LBS服务端的密钥
+		                    'geotable_id' => '138613',//数据表ID
+		                ]
 		]
     ],
 ];
