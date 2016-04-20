@@ -39,6 +39,15 @@ $config = [
             'showScriptName' => true,
             'rules' => [
             ]
+        ],
+        'view' => [
+            'theme' => [
+                'basePath' => '@app/themes/default',
+                'baseUrl' => '@web/themes/default',
+                'pathMap' => [
+                    '@app/views' => '@app/themes/default',
+                ]
+            ]
         ]
     ],
     'params' => $params,
