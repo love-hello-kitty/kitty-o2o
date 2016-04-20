@@ -1,7 +1,7 @@
 <?php
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
-    require(__DIR__ . '/params.php'),
+    require(__DIR__ . '/params.php')
 );
 
 $config = [
@@ -24,8 +24,8 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
-                ],
-            ],
+                ]
+            ]
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -38,8 +38,8 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => true,
             'rules' => [
-            ],
-        ],
+            ]
+        ]
     ],
     'params' => $params,
 ];
