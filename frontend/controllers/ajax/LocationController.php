@@ -1,0 +1,1 @@
+<?phpnamespace frontend\controllers\ajax;use Yii;use frontend\base\BaseFrontController;//主页控制器class LocationController extends BaseFrontController{    //根据某个坐标返回附近的店的总数    public function actionNearbyCount() {                                            }}

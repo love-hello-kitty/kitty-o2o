@@ -1,0 +1,1 @@
+<?phpnamespace frontend\controllers;use Yii;use frontend\base\BaseFrontController;//报错控制器class ErrorController extends BaseFrontController{    public function actions() {        return [            'error' => [                'class' => 'yii\web\ErrorAction',            ],        ];    }}
