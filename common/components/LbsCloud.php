@@ -54,7 +54,7 @@ class LbsCloud extends Component
 			'id'			=> $data['poi_id'],
 			'address'		=> $data['address']
 		];
-		$return = $this->curl(self::API_URL . self::UPDATE_POI_URI,$data,'post');
+		$return = $this->curl(self::API_URL . self::UPDATE_POI_URI,$poi_data,'post');
 		return $return;
 	}
 

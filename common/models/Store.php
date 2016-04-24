@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%kt_store}}".
+ * This is the model class for table "{{%store}}".
  *
  * @property integer $id
  * @property string $name
@@ -19,6 +19,7 @@ use Yii;
  * @property integer $district_id
  * @property string $longitude
  * @property string $latitude
+ * @property string $geohash
  * @property string $brief
  * @property integer $logo_id
  * @property integer $status
@@ -32,33 +33,30 @@ class Store extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%store}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['name', 'linkman', 'phone', 'address'], 'required'],
             [['open_stime', 'open_etime'], 'safe'],
             [['province_id', 'city_id', 'district_id', 'logo_id', 'status', 'poi_id', 'create_time', 'update_time', 'order_id'], 'integer'],
             [['longitude', 'latitude'], 'number'],
-            [['name'], 'string', 'max' => 50],
             [['linkman', 'phone'], 'string', 'max' => 20],
+            [['name', 'geohash'], 'string', 'max' => 50],
             [['address'], 'string', 'max' => 200],
-            [['brief'], 'string', 'max' => 500],
+            [['brief'], 'string', 'max' => 500]
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => '商家ID',
             'name' => '店铺名称',
@@ -72,6 +70,7 @@ class Store extends \yii\db\ActiveRecord
             'district_id' => '所属区县的ID',
             'longitude' => '经度',
             'latitude' => '纬度',
+            'geohash' => 'geohash',
             'brief' => '店铺简介',
             'logo_id' => '门店Logo图片ID',
             'status' => '商家状态1:待审核2:已审核3:被打回',
@@ -86,12 +85,12 @@ class Store extends \yii\db\ActiveRecord
     public function getProvince() {
         return $this->hasOne(Province::className(), ['id' => 'province_id']);
     }
- 
+
     //获取所属城市 
     public function getCity() {
         return $this->hasOne(City::className(), ['id' => 'city_id']);
     } 
- 
+
     //获取区县 
     public function getDistrict() {
         return $this->hasOne(District::className(), ['id' => 'district_id']);

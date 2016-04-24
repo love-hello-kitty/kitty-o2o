@@ -142,6 +142,7 @@ class StoreController extends BaseBackController
     	$model->address      = trim($post['address']);
     	$model->longitude    = trim($post['longitude']);
     	$model->latitude     = trim($post['latitude']);
+    	$model->geohash      = Yii::$app->geohash->encode(trim($post['latitude']),trim($post['longitude']));
     	$model->linkman      = trim($post['linkman']);
     	$model->phone        = trim($post['phone']);
     	$model->brief        = $post['brief'];
@@ -238,6 +239,7 @@ class StoreController extends BaseBackController
         $model->address      = trim($post['address']);
         $model->longitude    = trim($post['longitude']);
         $model->latitude     = trim($post['latitude']);
+        $model->geohash      = Yii::$app->geohash->encode(trim($post['latitude']),trim($post['longitude']));
         $model->linkman      = trim($post['linkman']);
         $model->phone        = trim($post['phone']);
         $model->brief        = $post['brief'];
@@ -283,7 +285,7 @@ class StoreController extends BaseBackController
      		}
         	$this->redirect(['store/index']);
         } else {
-        	throw new NotFoundHttpException(Yii::t('yii','创建失败'));
+        	throw new NotFoundHttpException(Yii::t('yii','更新失败'));
         }
     }
 

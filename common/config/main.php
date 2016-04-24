@@ -35,6 +35,9 @@ return [
 		                    'ak' => 'i1Pf71ChI2rHYR8lX2fbG6QhwKqH1XMV',//LBS服务端的密钥
 		                    'geotable_id' => '138613',//数据表ID
 		                ]
+		],
+		'geohash' => [
+		    'class' => 'common\components\GeoHash',
 		]
     ],
 ];
