@@ -81,6 +81,15 @@ class Store extends \yii\db\ActiveRecord
         ];
     }
 
+    //根据GeoHash来获取商家
+    public static function getStoresByGeoHash($geohash = '') {
+        if (empty($geohash)) {
+            return false;
+        }
+        $stores = Store::find()->where(['like', 'geohash', $geohash])->asArray()->all();
+        return $stores;
+    }
+
     //获取省份 
     public function getProvince() {
         return $this->hasOne(Province::className(), ['id' => 'province_id']);
